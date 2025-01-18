@@ -2,7 +2,7 @@
 
 namespace SmartJuniorTestTask.Models;
 
-public class EquipmentPlacemntContract
+public class EquipmentPlacementContract
 {
     [Key]
     public int Id { get; set; }

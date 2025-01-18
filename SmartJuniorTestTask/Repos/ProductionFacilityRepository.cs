@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartJuniorTestTask.Db;
 using SmartJuniorTestTask.Models;
+using SmartJuniorTestTask.Repos.Interfaces;
 using System.Linq.Expressions;
 
 namespace SmartJuniorTestTask.Repos;

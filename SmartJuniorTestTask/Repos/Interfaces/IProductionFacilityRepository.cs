@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using SmartJuniorTestTask.Models;
 
-namespace SmartJuniorTestTask.Repos;
+namespace SmartJuniorTestTask.Repos.Interfaces;
 
 public interface IProductionFacilityRepository
 {
