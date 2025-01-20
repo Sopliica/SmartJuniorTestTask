@@ -19,11 +19,6 @@ public class EquipmentPlacementContractController : Controller
     public async Task<IActionResult> CreateEquipmentPlacementContract(
         [FromBody] CreateEquipmentPlacementContractCommand command)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var result = await _mediator.Send(command);
 
         return Ok(result);

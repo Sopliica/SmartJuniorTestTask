@@ -18,6 +18,5 @@ public class MsSqlDbContext : DbContext
         modelBuilder.Entity<ProductionFacility>().HasKey(x => x.Code);
         modelBuilder.Entity<TypeOfProcessEquipment>().HasKey(x => x.Code);
         modelBuilder.Entity<EquipmentPlacementContract>().HasKey(x => x.Id);
-
     }
 }

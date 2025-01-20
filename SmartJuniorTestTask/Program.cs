@@ -14,8 +14,9 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("MsSql");
 builder.Services.AddDbContext<MsSqlDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<IProductionFacilityRepository, ProductionFacilityRepository>();
-builder.Services.AddScoped<IEquipmentPlacemntContractRepository, EquipmentPlacementContractRepository>();
+builder.Services.AddTransient<IProductionFacilityRepository, ProductionFacilityRepository>();
+builder.Services.AddTransient<ITypeOfProcessEquipmentRepository, TypeOfProcessEquipmentRepository>();
+builder.Services.AddTransient<IEquipmentPlacemntContractRepository, EquipmentPlacementContractRepository>();
 
 builder.Services.AddMediatR(cfg =>
 {
