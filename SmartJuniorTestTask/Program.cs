@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using SmartJuniorTestTask.Db;
 using SmartJuniorTestTask.Repos;
 using SmartJuniorTestTask.Repos.Interfaces;
+using MediatR;
+using SmartJuniorTestTask.Infrastructure.Behaviors;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +24,30 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+
 var app = builder.Build();
 
-app.UseSwagger();
-app.MapGet("/", () => "Hello World!");
-app.UseSwaggerUI();
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+
+if (app.Environment.IsDevelopment())
+{
+    await CreateDB(app);    
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.MapControllers();
 
 app.Run();
+
+async Task CreateDB(IHost host)
+{
+    await using var scope = host.Services.CreateAsyncScope();
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<MsSqlDbContext>();
+    await Seeder.Seed(context);
+}

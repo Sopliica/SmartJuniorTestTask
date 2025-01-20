@@ -16,8 +16,8 @@ public class CreateEqupmentPlacementContractCommandHandler : IRequestHandler<Cre
     {
         var contractToAdd = new EquipmentPlacementContract
         {
-            ProductionFacility = request.ProductionFacility,
-            TypeOfProcessEquipment = request.TypeOfProcessEquipment,
+            ProductionFacilityCode = request.ProductionFacilityCode,
+            TypeOfProcessEquipmentCode = request.TypeOfProcessEquipmentCode,
             NumberOfEquipmentUnits = request.NumberOfEquipmentUnits
         };
 
