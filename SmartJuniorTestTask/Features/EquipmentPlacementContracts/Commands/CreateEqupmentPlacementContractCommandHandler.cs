@@ -54,15 +54,14 @@ public class CreateEqupmentPlacementContractCommandHandler : IRequestHandler<Cre
             .Include(c => c.ProductionFacility)
             .ToListAsync();
 
-        var currentFacilityOcuppiedSpace = 0;
+        int currentFacilityOcuppiedSpace = 0;
         foreach (var contract in contractsWithIncludedFacilitiesAndTypes)
         {
             currentFacilityOcuppiedSpace += 
                 contract.NumberOfEquipmentUnits * contract.TypeOfProcessEquipment.Area;
         }
-
-        if (currentContractFacilityOverallSpace - currentFacilityOcuppiedSpace <
-            contractToAdd.NumberOfEquipmentUnits * currentContractEquipmentTypeArea)
+        int requiredArea = contractToAdd.NumberOfEquipmentUnits * currentContractEquipmentTypeArea;
+        if (currentContractFacilityOverallSpace - currentFacilityOcuppiedSpace < requiredArea)
             throw new ValidationException("There is not enough free space in this facility for equipment of this type in this quantity.");
     }
 }

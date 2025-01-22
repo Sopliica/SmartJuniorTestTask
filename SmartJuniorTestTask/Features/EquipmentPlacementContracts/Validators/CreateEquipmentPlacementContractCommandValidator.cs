@@ -20,6 +20,10 @@ public class CreateEquipmentPlacementContractCommandValidator :
             .NotEmpty()
             .WithMessage("Number of Equipment Units Code can't be empty.")
             .GreaterThan(0)
-            .WithMessage("Number of Equipment Units have to be greater then 0.");
+            .WithMessage("Number of Equipment Units have to be greater then 0.")
+            .LessThan(10000)
+            .WithMessage("Provided amount is too big.");
+        
+        
     }
 }
